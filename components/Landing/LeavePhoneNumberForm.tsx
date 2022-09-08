@@ -2,7 +2,7 @@ import { Flex, FormControl, HStack, Text, VStack } from '@chakra-ui/react';
 import { FC, useState } from 'react';
 import CustomInput from '../customs/CustomInput';
 import SimpleButton from '../customs/SimpleButton';
-import AgeSelector from '../helpers/AgeSelect';
+import AgeSelector from '../helpers/AgeSelector';
 import SectionLayout from '../Layouts/SectionLayout';
 
 interface FeedbackProps {}
