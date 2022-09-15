@@ -13,7 +13,8 @@ const AgeSelector = ({ value, onChange }: AgeSelectorProps) => {
       <option value='3-6 лет'>3-6 лет</option>
       <option value='7-9 лет'>7-9 лет</option>
       <option value='9-11 лет'>9-11 лет</option>
-      <option value='старше 12 лет'>Старше 12 лет</option>
+      <option value='12-16 лет'>12-16 лет</option>
+      <option value='старше 16 лет'>Старше 16 лет</option>
     </CustomSelect>
   );
 };

@@ -1,10 +1,10 @@
-import { Box, Container, StyleProps } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 import { CSSProperties } from 'react';
 
 interface SectionLayoutProps {
+  children: React.ReactNode;
   about: string;
   bgColor?: string;
-  children: React.ReactNode;
   style?: CSSProperties | undefined;
 }
 

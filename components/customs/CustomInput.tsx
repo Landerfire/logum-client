@@ -40,7 +40,7 @@ const CustomInput: FC<CustomInputProps> = ({
   const handleBlur = () => setHelperTextVisible(false);
 
   return (
-    <FormControl position='relative' m='5px 0' w='225px' sx={style}>
+    <FormControl position='relative' m='5px 0' minW='225px' w='225px' sx={style}>
       <VisuallyHidden>
         <FormLabel htmlFor={name}>{placeholder}</FormLabel>
       </VisuallyHidden>

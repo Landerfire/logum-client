@@ -22,14 +22,14 @@ const Feedback: FC<FeedbackProps> = () => {
   const handleAgeSelectorChange = (value: string) => setAge(value);
 
   return (
-    <SectionLayout about='leave phone number' bgColor='lightgray'>
-      <Flex h='100%' py='16px' flexDir='column' alignItems='center' justifyContent='center'>
+    <SectionLayout about='leave phone number' bgColor='lightgray' style={{}}>
+      <Flex h='100%' py='14px' flexDir='column' alignItems='center' justifyContent='center'>
         <FormControl as='form'>
-          <VStack mb='24px'>
-            <Text fontSize='24px'>Записаться на бесплатное ознакомительное занятие в {'"ЛОГУМ"'}</Text>
+          <VStack textAlign='center' mb='28px'>
+            <Text fontSize='28px'>Записаться на бесплатное ознакомительное занятие в «Логум»</Text>
             <Text fontSize='20px'>Оставьте нам ваше имя и ваш номер телефона. Мы вам перезвоним.</Text>
           </VStack>
-          <HStack justifyContent='center' spacing='24px' mb='40px'>
+          <HStack justifyContent='center' spacing='24px' mb='40px' flexWrap='wrap'>
             <CustomInput
               name={'userName'}
               value={name}
@@ -49,7 +49,7 @@ const Feedback: FC<FeedbackProps> = () => {
               Записаться
             </SimpleButton>
           </HStack>
-          <Text textAlign='center'>
+          <Text textAlign='center' fontSize='16px'>
             *Отправляя форму, Вы соглашаетесь с условиями Политики обработки персональных данных.
           </Text>
         </FormControl>

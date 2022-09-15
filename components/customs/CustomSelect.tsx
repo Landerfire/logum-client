@@ -56,7 +56,7 @@ const CustomSelect = ({
         {children}
       </Select>
 
-      {value === selectPlaceholder && (
+      {value !== selectPlaceholder && value !== '' && (
         <FormHelperText ml='12px' position='absolute' top='35px' color='black' fontSize='16px'>
           {label}
         </FormHelperText>
