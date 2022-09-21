@@ -37,3 +37,6 @@ next-env.d.ts
 
 # mock files
 /mock
+
+# consts
+tools/consts.ts

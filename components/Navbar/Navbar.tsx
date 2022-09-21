@@ -6,11 +6,20 @@ interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = () => {
   return (
-    <HStack as='nav' h='40px' bgColor='green.400' fontSize={24} justifyContent='center' spacing={10}>
-      <CustomLink href='/' title='Home' />
-      <CustomLink href='/programs' title='Courses' />
-      <CustomLink href='/teachers' title='Teachers' />
-      <CustomLink href='/about' title='About' />
+    <HStack
+      as='nav'
+      h='36px'
+      bgColor='green.400'
+      fontSize={[10, 12, 14, 18, 20]}
+      justifyContent='center'
+      spacing={[4, 4, 5, 10, 10]}
+      px='5'
+      textAlign='center'
+    >
+      <CustomLink href='/' title='Главная' />
+      <CustomLink href='/programs' title='Образовательные программы'/>
+      <CustomLink href='/teachers' title='Сведения об образовательной организации' />
+      <CustomLink href='/about' title='Наши контакты' />
     </HStack>
   );
 };

@@ -8,6 +8,8 @@ import SectionLayout from '../Layouts/SectionLayout';
 interface FeedbackProps {}
 
 const Feedback: FC<FeedbackProps> = () => {
+  const options = ['До трёх лет', '3-6 лет', '7-9 лет', '9-11 лет', '12-16 лет', 'старше 16 лет']
+
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [age, setAge] = useState('');
@@ -20,6 +22,14 @@ const Feedback: FC<FeedbackProps> = () => {
   };
 
   const handleAgeSelectorChange = (value: string) => setAge(value);
+  const handleAgeSelectorClick = () => {
+    age === '' && setAge(options[0]);
+  }
+
+  const handleSubmit = () => {
+    const data = {name, phone, age}
+    console.log(data)
+  }
 
   return (
     <SectionLayout about='leave phone number' bgColor='lightgray' style={{}}>
@@ -43,9 +53,9 @@ const Feedback: FC<FeedbackProps> = () => {
               placeholder='Ваш телефон'
               onChange={(e) => phoneInputChange(e.target.value)}
             />
-            <AgeSelector value={age} onChange={(e) => handleAgeSelectorChange(e.target.value)} />
+            <AgeSelector options={options} value={age} onClick={handleAgeSelectorClick} onChange={(e) => handleAgeSelectorChange(e.target.value)} />
 
-            <SimpleButton chakraStyle={{ colorScheme: 'green' }} style={{ width: '120px' }}>
+            <SimpleButton onClick={handleSubmit} chakraStyle={{ colorScheme: 'green' }} style={{ width: '120px' }}>
               Записаться
             </SimpleButton>
           </HStack>

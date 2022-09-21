@@ -7,11 +7,13 @@ interface SimpleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
   children?: React.ReactNode;
   chakraStyle?: StylingProps;
   isLoading?: boolean;
+  onClick?: () => void;
 }
 
-const SimpleButton: FC<SimpleButtonProps> = ({ children, chakraStyle, isLoading, style, ...props }) => {
+const SimpleButton: FC<SimpleButtonProps> = ({ children, onClick, chakraStyle, isLoading, style, ...rest }) => {
   return (
     <Button
+      onClick={onClick}
       colorScheme={chakraStyle?.colorScheme || 'teal'}
       variant={chakraStyle?.variant}
       sx={style}

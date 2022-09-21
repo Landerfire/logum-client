@@ -1,14 +1,10 @@
 import {
-  Box,
   FormControl,
   FormHelperText,
-  FormLabel,
-  position,
-  Select,
-  VisuallyHidden,
-  VStack,
+  FormLabel, Select,
+  VisuallyHidden
 } from '@chakra-ui/react';
-import { CSSProperties, useState, ChangeEvent } from 'react';
+import { ChangeEvent, CSSProperties, useState } from 'react';
 
 interface CustomSelectProps {
   children: React.ReactNode;
@@ -18,23 +14,29 @@ interface CustomSelectProps {
   placeholder?: string;
   style?: CSSProperties;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  onClick: () => void;
 }
 
 const CustomSelect = ({
   children,
-  placeholder = '',
+  placeholder,
   value = '',
   onChange,
+  onClick,
   name,
   label,
   style,
   ...rest
 }: CustomSelectProps) => {
-  const [selectPlaceholder, setSelectPlaceholder] = useState(placeholder ? placeholder : label);
+  // const [selectPlaceholder, setSelectPlaceholder] = useState(placeholder ? placeholder : label);
+  const [displayLabel, setDisplayLabel] = useState(false)
 
-  const handleFocus = () => {
-    setSelectPlaceholder('');
-  };
+  // const handleFocus = () => {
+  //   if (!displayLabel) {
+  //     setSelectPlaceholder('');
+  //     setDisplayLabel(true);
+  //   }
+  // };
 
   return (
     <FormControl position='relative' w='225px' sx={style}>
@@ -46,9 +48,9 @@ const CustomSelect = ({
         name={name}
         value={value}
         onChange={onChange}
-        placeholder={selectPlaceholder}
+        onClick={onClick}
+        placeholder={value === '' ? label : ''}
         sx={style}
-        onFocus={handleFocus}
         bgColor='white'
         width='225px'
         borderRadius='3xl'
@@ -56,7 +58,7 @@ const CustomSelect = ({
         {children}
       </Select>
 
-      {value !== selectPlaceholder && value !== '' && (
+      {value && (
         <FormHelperText ml='12px' position='absolute' top='35px' color='black' fontSize='16px'>
           {label}
         </FormHelperText>
