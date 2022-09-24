@@ -31,7 +31,9 @@ const ProgramInfo = ({program}: ProgramInfoProps) => {
         marginBottom={5}
       >
         {isLargerThan1024 && (
-          <CustomImage src={baseURL + program.thumbnail} alt={program.name} layout='fill' boxShadow='md' />
+          <ImageWrapper boxShadow='lg'>
+            <CustomImage src={baseURL + program.thumbnail} alt={program.name} layout='fill' />
+          </ImageWrapper>
         )}
         <Box display={'flex'} flexDirection='column' justifyContent={'space-between'}>
           <Text whiteSpace={'pre-line'} marginBottom={isLargerThan1280 ? '1' : '5'}>

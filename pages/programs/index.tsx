@@ -1,7 +1,7 @@
-import { Text } from '@chakra-ui/react';
 import { GetStaticProps, NextPage } from 'next';
 import MainLayout from '../../components/Layouts/MainLayout';
 import SectionLayout from '../../components/Layouts/SectionLayout';
+import PageTitle from '../../components/PageTitle';
 import ProgramsList from '../../components/ProgramsList';
 import { baseURL } from '../../tools/consts';
 import { IProgram } from '../../tools/interfaces';
@@ -14,7 +14,7 @@ const Programs: NextPage<ProgramsPageProps> = ({ programs }) => {
   return (
     <MainLayout>
       <SectionLayout about='Список образовательных программ'>
-        <Text mt='5' fontSize={32} fontWeight={600}>Образовательные программы</Text>
+        <PageTitle>Наши образовательные программы</PageTitle>
         <ProgramsList programs={programs} />
       </SectionLayout>
     </MainLayout>

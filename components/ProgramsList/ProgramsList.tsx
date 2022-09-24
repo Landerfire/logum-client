@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, useMediaQuery } from '@chakra-ui/react';
 import { IProgram } from '../../tools/interfaces';
 import ProgramItem from '../ProgramItem';
 
@@ -7,12 +7,24 @@ interface ProgramsListProps {
 }
 
 const ProgramsList = ({ programs }: ProgramsListProps) => {
+  const [isLargerThan1024] = useMediaQuery('(min-width: 1024px)')
+  const [isLargerThan680] = useMediaQuery('(min-width: 680px)');
+
   return (
-    <Box height='100%' marginTop={5} display='grid' gridGap={5} gridTemplateColumns='1fr 1fr 1fr'>
-      {programs!.map((program) => {
-        return <ProgramItem key={program.id} program={program} />;
-      })}
-    </Box>
+    <>
+      <Box
+        height='100%'
+        display={isLargerThan680 ? 'grid' : 'flex'}
+        flexDirection='column'
+        textAlign={'center'}
+        gridGap={5}
+        gridTemplateColumns={isLargerThan1024 ? '1fr 1fr 1fr' : '1fr 1fr'}
+      >
+        {programs!.map((program) => {
+          return <ProgramItem key={program.id} program={program} />;
+        })}
+      </Box>
+    </>
   );
 };
 

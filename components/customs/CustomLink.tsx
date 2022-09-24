@@ -1,19 +1,20 @@
-import { Link } from '@chakra-ui/react';
-import NextLink from 'next/link';
-import React, { LinkHTMLAttributes } from 'react';
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
+import NextLink, { LinkProps as NextLinkProps } from 'next/link';
+import React from 'react';
 
-interface CustomLinkProps extends LinkHTMLAttributes<HTMLLinkElement> {
-  href: string;
+type CustomLinkType = NextLinkProps & LinkProps
+
+interface CustomLinkProps extends CustomLinkType {
   title?: string;
   children?: React.ReactNode;
 }
 
-const CustomLink: React.FC<CustomLinkProps> = ({ href, title, style, children, ...rest }) => {
+const CustomLink: React.FC<CustomLinkProps> = ({ href, title, children, ...rest }) => {
   return (
     <NextLink href={href} passHref>
-      <Link cursor='pointer' sx={style} style={{textDecoration: 'none'}}>
+      <ChakraLink cursor='pointer' _hover={{ textDecoration: 'none' }} {...rest}>
         {!children ? title : children}
-      </Link>
+      </ChakraLink>
     </NextLink>
   );
 };

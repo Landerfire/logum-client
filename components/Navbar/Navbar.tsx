@@ -17,9 +17,9 @@ const Navbar: React.FC<NavbarProps> = () => {
       textAlign='center'
     >
       <CustomLink href='/' title='Главная' />
-      <CustomLink href='/programs' title='Образовательные программы'/>
-      <CustomLink href='/teachers' title='Сведения об образовательной организации' />
-      <CustomLink href='/about' title='Наши контакты' />
+      <CustomLink href='/programs' title='Образовательные программы' />
+      <CustomLink href='/about' title='Сведения об образовательной организации' />
+      <CustomLink href='/contacts' title='Наши контакты' />
     </HStack>
   );
 };

@@ -10,14 +10,14 @@ interface ProgramItemProps {
 
 const ProgramItem = ({program}: ProgramItemProps) => {
   return (
-    <Box marginBottom={5} boxShadow='1px 1px 10px lightgray' p={4}>
+    <Box marginBottom={5} boxShadow='1px 1px 10px lightgray' p={4} display='flex' flexDirection={'column'} bgColor='gray.100' rounded={'5%'}>
       <CustomLink href={`programs/${program.id}`}>
         <CustomImage
           src={baseURL + program.thumbnail}
           alt={program.name}
           width={400}
           height={300}
-          style={{ borderRadius: '5%' }}
+          rounded='5%'
         />
         <Text fontSize={26} my={1}>
           {program.name}
@@ -38,9 +38,9 @@ const ProgramItem = ({program}: ProgramItemProps) => {
         {program.description}
       </Text>
 
-      <CustomLink href={`programs/${program.id}`}>
+      <CustomLink href={`programs/${program.id}`} marginTop='auto'>
         <Text fontSize={14} fontWeight={600}>
-          Подробнее
+          Подробнее {'>>'}
         </Text>
       </CustomLink>
     </Box>
