@@ -1,7 +1,7 @@
 import { Box, Text } from '@chakra-ui/react'
-import Image from 'next/image'
 import { baseURL } from '../../tools/consts'
 import { IProgram } from '../../tools/interfaces'
+import CustomImage from '../customs/CustomImage'
 import CustomLink from '../customs/CustomLink'
 
 interface ProgramItemProps {
@@ -12,13 +12,13 @@ const ProgramItem = ({program}: ProgramItemProps) => {
   return (
     <Box marginBottom={5} boxShadow='1px 1px 10px lightgray' p={4}>
       <CustomLink href={`programs/${program.id}`}>
-        <Image
+        <CustomImage
           src={baseURL + program.thumbnail}
           alt={program.name}
           width={400}
           height={300}
           style={{ borderRadius: '5%' }}
-        ></Image>
+        />
         <Text fontSize={26} my={1}>
           {program.name}
         </Text>

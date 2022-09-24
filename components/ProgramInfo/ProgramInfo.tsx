@@ -1,10 +1,10 @@
-import { Box, HStack, List, ListIcon, ListItem, Text } from '@chakra-ui/react';
-import Image from 'next/image';
-import React from 'react'
+import { Box, List, ListIcon, ListItem, Text, useMediaQuery } from '@chakra-ui/react';
 import { ImSad, ImSmile } from 'react-icons/im';
+import { mockCoursesArticle } from '../../mock/coursesArticles';
 import { baseURL } from '../../tools/consts';
 import { IProgram } from '../../tools/interfaces';
-import { mockCoursesArticle } from '../../mock/coursesArticles';
+import CustomImage from '../customs/CustomImage';
+import ImageWrapper from '../customs/ImageWrapper';
 import SimpleButton from '../customs/SimpleButton';
 
 interface ProgramInfoProps {
@@ -12,6 +12,10 @@ interface ProgramInfoProps {
 }
 
 const ProgramInfo = ({program}: ProgramInfoProps) => {
+  const [isLargerThan1280] = useMediaQuery(['(min-width: 1280px)']);
+  const [isLargerThan1024] = useMediaQuery(['(min-width: 1024px)']);
+
+
   return (
     <Box marginTop={5}>
       <Box bgColor={'green.400'} marginBottom={5} shadow='md'>
@@ -20,23 +24,35 @@ const ProgramInfo = ({program}: ProgramInfoProps) => {
         </Text>
       </Box>
 
-      <Box display={'grid'} gridTemplateColumns='1fr 1fr' gridGap={5} marginBottom={5}>
-        <Image src={baseURL + program.thumbnail} alt={program.name} width={500} height={400}></Image>
+      <Box
+        display={isLargerThan1024 ? 'grid' : 'flex'}
+        gridTemplateColumns='1fr 1fr'
+        gridGap={5}
+        marginBottom={5}
+      >
+        {isLargerThan1024 && (
+          <CustomImage src={baseURL + program.thumbnail} alt={program.name} layout='fill' boxShadow='md' />
+        )}
         <Box display={'flex'} flexDirection='column' justifyContent={'space-between'}>
-          <Text whiteSpace={'pre-line'}>{mockCoursesArticle.shortDescription}</Text>
-          <List spacing={0.5}>
-            <Text fontSize={18} mb={1}>
-              Кому подходит этот курс:
-            </Text>
-            {mockCoursesArticle.problems.map((problem, index) => {
-              return (
-                <ListItem pl={3} key={index}>
-                  <ListIcon as={ImSad} color='red.500' />
-                  {problem}
-                </ListItem>
-              );
-            })}
-          </List>
+          <Text whiteSpace={'pre-line'} marginBottom={isLargerThan1280 ? '1' : '5'}>
+            {mockCoursesArticle.shortDescription}
+          </Text>
+          <Box display={isLargerThan1024 ? 'box' : 'grid'} gridTemplateColumns='1fr 1fr'>
+            <ImageWrapper boxShadow='lg' mr='5'>
+              <CustomImage src={baseURL + program.thumbnail} alt={program.name} layout='fill' />
+            </ImageWrapper>
+            <List spacing={0.5}>
+              <Text fontSize={18}>Кому подходит этот курс:</Text>
+              {mockCoursesArticle.problems.map((problem, index) => {
+                return (
+                  <ListItem pl={3} key={index}>
+                    <ListIcon as={ImSad} color='red.500' />
+                    {problem}
+                  </ListItem>
+                );
+              })}
+            </List>
+          </Box>
         </Box>
       </Box>
 
@@ -45,22 +61,28 @@ const ProgramInfo = ({program}: ProgramInfoProps) => {
       <Box marginBottom={5}>
         <Text fontSize={18}>{mockCoursesArticle.schedule}</Text>
         {program.durationInMinutes && (
-          <HStack>
-            <Text as={'b'}>Продолжительность одного занятия: </Text>
-            <Text>{program.durationInMinutes} минут</Text>
-          </HStack>
+          <Text fontWeight={'bold'}>
+            Продолжительность одного занятия:{' '}
+            <Text fontWeight={'normal'} as={'span'}>
+              {program.durationInMinutes} минут
+            </Text>
+          </Text>
         )}
         {program.price && (
-          <HStack>
-            <Text as={'b'}>Стоимость: </Text>
-            <Text>{program.price} руб.</Text>
-          </HStack>
+          <Text fontWeight={'bold'}>
+            Стоимость:{' '}
+            <Text fontWeight={'normal'} as='span'>
+              {program.price} руб.
+            </Text>
+          </Text>
         )}
         {program.numberOfLessons && (
-          <HStack>
-            <Text as={'b'}>Количество занятий: </Text>
-            <Text>{program.numberOfLessons}</Text>
-          </HStack>
+          <Text fontWeight={'bold'}>
+            Количество занятий:{' '}
+            <Text fontWeight={'normal'} as='span'>
+              {program.numberOfLessons}
+            </Text>
+          </Text>
         )}
       </Box>
 
@@ -69,9 +91,7 @@ const ProgramInfo = ({program}: ProgramInfoProps) => {
       <Box mb={5}>
         <Text mb={5}>{mockCoursesArticle.fullDescription}</Text>
         <List spacing={0.5}>
-          <Text fontSize={18} mb={1}>
-            Результаты уже через 4 месяца обучения:
-          </Text>
+          <Text fontSize={18}>Результаты уже через 4 месяца обучения:</Text>
           {mockCoursesArticle.results.map((result, index) => {
             return (
               <ListItem pl={3} key={index}>
@@ -83,8 +103,8 @@ const ProgramInfo = ({program}: ProgramInfoProps) => {
         </List>
       </Box>
 
-      <Box height='10vh'>
-        <SimpleButton chakraStyle={{colorScheme: 'green'}}>Записаться на курс</SimpleButton>
+      <Box height='10vh' width='100%' display='flex' justifyContent='center' alignItems='center'>
+        <SimpleButton chakraStyle={{ colorScheme: 'green' }}>Записаться на курс</SimpleButton>
       </Box>
     </Box>
   );
