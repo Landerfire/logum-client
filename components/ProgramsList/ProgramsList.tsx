@@ -1,9 +1,9 @@
 import { Box, useMediaQuery } from '@chakra-ui/react';
-import { IProgram } from '../../tools/interfaces';
+import { ICourse } from '../../tools/interfaces';
 import ProgramItem from '../ProgramItem';
 
 interface ProgramsListProps {
-  programs: IProgram[];
+  programs: ICourse[];
 }
 
 const ProgramsList = ({ programs }: ProgramsListProps) => {

@@ -1,26 +1,33 @@
 import { Box, List, ListIcon, ListItem, Text, useMediaQuery } from '@chakra-ui/react';
+import Error from 'next/error';
 import { ImSad, ImSmile } from 'react-icons/im';
-import { mockCoursesArticle } from '../../mock/coursesArticles';
+// import { description } from '../../mock/coursesArticles';
 import { baseURL } from '../../tools/consts';
-import { IProgram } from '../../tools/interfaces';
+import { ICourse, IDescrption, IProblems, IResults } from '../../tools/interfaces';
 import CustomImage from '../customs/CustomImage';
 import ImageWrapper from '../customs/ImageWrapper';
 import SimpleButton from '../customs/SimpleButton';
 
 interface ProgramInfoProps {
-    program: IProgram
+  course: ICourse;
+  description: IDescrption;
+  results: IResults[];
+  problems: IProblems[];
 }
 
-const ProgramInfo = ({program}: ProgramInfoProps) => {
+const ProgramInfo = ({ course, description, problems, results }: ProgramInfoProps) => {
   const [isLargerThan1280] = useMediaQuery(['(min-width: 1280px)']);
   const [isLargerThan1024] = useMediaQuery(['(min-width: 1024px)']);
 
+  if (!course || !description) {
+    return <Error statusCode={404} />
+  }
 
   return (
     <Box marginTop={5}>
       <Box bgColor={'green.400'} marginBottom={5} shadow='md'>
         <Text fontSize={28} textAlign='center' color='white' textShadow={'1px 1px green'}>
-          {program.name}
+          {course.name}
         </Text>
       </Box>
 
@@ -29,30 +36,32 @@ const ProgramInfo = ({program}: ProgramInfoProps) => {
         gridTemplateColumns='1fr 1fr'
         gridGap={5}
         marginBottom={5}
+        height={'50vh'}
       >
         {isLargerThan1024 && (
           <ImageWrapper boxShadow='lg'>
-            <CustomImage src={baseURL + program.thumbnail} alt={program.name} layout='fill' />
+            <CustomImage src={baseURL + course.thumbnail} alt={course.name} layout='fill' />
           </ImageWrapper>
         )}
         <Box display={'flex'} flexDirection='column' justifyContent={'space-between'}>
           <Text whiteSpace={'pre-line'} marginBottom={isLargerThan1280 ? '1' : '5'}>
-            {mockCoursesArticle.shortDescription}
+            {description&& description.aboutCourse}
           </Text>
           <Box display={isLargerThan1024 ? 'box' : 'grid'} gridTemplateColumns='1fr 1fr'>
             <ImageWrapper boxShadow='lg' mr='5'>
-              <CustomImage src={baseURL + program.thumbnail} alt={program.name} layout='fill' />
+              <CustomImage src={baseURL + course.thumbnail} alt={course.name} layout='fill' />
             </ImageWrapper>
             <List spacing={0.5}>
               <Text fontSize={18}>Кому подходит этот курс:</Text>
-              {mockCoursesArticle.problems.map((problem, index) => {
-                return (
-                  <ListItem pl={3} key={index}>
-                    <ListIcon as={ImSad} color='red.500' />
-                    {problem}
-                  </ListItem>
-                );
-              })}
+              {problems &&
+                problems.map((problem) => {
+                  return (
+                    <ListItem pl={3} key={problem.id}>
+                      <ListIcon as={ImSad} color='red.500' />
+                      {problem.text}
+                    </ListItem>
+                  );
+                })}
             </List>
           </Box>
         </Box>
@@ -61,28 +70,28 @@ const ProgramInfo = ({program}: ProgramInfoProps) => {
       <Box height='4px' width='70%' backgroundColor='green.400' marginBottom={5} shadow='md'></Box>
 
       <Box marginBottom={5}>
-        <Text fontSize={18}>{mockCoursesArticle.schedule}</Text>
-        {program.durationInMinutes && (
+        <Text fontSize={18}>{description && description.schedule}</Text>
+        {course.durationInMinutes && (
           <Text fontWeight={'bold'}>
             Продолжительность одного занятия:{' '}
             <Text fontWeight={'normal'} as={'span'}>
-              {program.durationInMinutes} минут
+              {course.durationInMinutes} минут
             </Text>
           </Text>
         )}
-        {program.price && (
+        {course.price && (
           <Text fontWeight={'bold'}>
             Стоимость:{' '}
             <Text fontWeight={'normal'} as='span'>
-              {program.price} руб.
+              {course.price} руб.
             </Text>
           </Text>
         )}
-        {program.numberOfLessons && (
+        {course.numberOfLessons && (
           <Text fontWeight={'bold'}>
             Количество занятий:{' '}
             <Text fontWeight={'normal'} as='span'>
-              {program.numberOfLessons}
+              {course.numberOfLessons}
             </Text>
           </Text>
         )}
@@ -91,17 +100,18 @@ const ProgramInfo = ({program}: ProgramInfoProps) => {
       <Box height='4px' width='35%' backgroundColor='green.400' marginBottom={5} shadow='md'></Box>
 
       <Box mb={5}>
-        <Text mb={5}>{mockCoursesArticle.fullDescription}</Text>
+        <Text mb={5}>{description && description.fullDescription}</Text>
         <List spacing={0.5}>
           <Text fontSize={18}>Результаты уже через 4 месяца обучения:</Text>
-          {mockCoursesArticle.results.map((result, index) => {
-            return (
-              <ListItem pl={3} key={index}>
-                <ListIcon as={ImSmile} color='green.500' />
-                {result}
-              </ListItem>
-            );
-          })}
+          {results &&
+            results.map((result) => {
+              return (
+                <ListItem pl={3} key={result.id}>
+                  <ListIcon as={ImSmile} color='green.500' />
+                  {result.text}
+                </ListItem>
+              );
+            })}
         </List>
       </Box>
 
@@ -110,6 +120,6 @@ const ProgramInfo = ({program}: ProgramInfoProps) => {
       </Box>
     </Box>
   );
-}
+};
 
-export default ProgramInfo
+export default ProgramInfo;

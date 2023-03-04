@@ -1,11 +1,11 @@
 import { Box, Text } from '@chakra-ui/react'
 import { baseURL } from '../../tools/consts'
-import { IProgram } from '../../tools/interfaces'
+import { ICourse } from '../../tools/interfaces'
 import CustomImage from '../customs/CustomImage'
 import CustomLink from '../customs/CustomLink'
 
 interface ProgramItemProps {
-    program: IProgram
+    program: ICourse
 }
 
 const ProgramItem = ({program}: ProgramItemProps) => {

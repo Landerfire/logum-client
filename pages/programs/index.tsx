@@ -4,10 +4,10 @@ import SectionLayout from '../../components/Layouts/SectionLayout';
 import PageTitle from '../../components/PageTitle';
 import ProgramsList from '../../components/ProgramsList';
 import { baseURL } from '../../tools/consts';
-import { IProgram } from '../../tools/interfaces';
+import { ICourse } from '../../tools/interfaces';
 
 interface ProgramsPageProps {
-  programs: IProgram[];
+  programs: ICourse[];
 }
 
 const Programs: NextPage<ProgramsPageProps> = ({ programs }) => {
@@ -25,7 +25,7 @@ export default Programs;
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const response = await fetch(baseURL + 'api/programs');
-  const programs: IProgram[] = await response.json();
+  const programs: ICourse[] = await response.json();
 
   return {
     props: {
